@@ -120,7 +120,6 @@ INSTALLED_APPS = (
     'apps.productos',
     'apps.tiendas',
     'easy_maps',
-    'bootstrap_toolkit',
     'rest_framework',
 )
 
