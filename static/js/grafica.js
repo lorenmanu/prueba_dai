@@ -1,5 +1,5 @@
 function Visualiza_datos(datos){
-        $('#grafica').highcharts({
+        $('#container').highcharts({
             chart: { type: 'bar', animation:'true' },
             title: { text: 'Visitas de las tiendas' },
             xAxis: { categories: datos[0] },
