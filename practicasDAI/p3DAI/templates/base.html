@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link href="static/style.css" rel="stylesheet" type="text/css" />
+<title>Practica 3 DAI - {% block title%}{%endblock%}</title>
+</head>
+
+<body>
+	<div id="container">
+		<div id="header">
+			<div id="nom_empresa">
+			   <h1>Práctica 3 DAI</h1>
+		  </div>
+			<div id="formulario">
+			{%if 'username' in session: %}
+						<form action="/logout" method="post">
+							<p>Bienvenido {{ session['username'] }}</p>
+							<p><input type="submit" value="Logout"/></p>
+						</form>
+					{% if session['historial'] %}
+                    	<br>Historial
+                    	<a href="{{ session['historial'][0] }}"><li>Historial 1</li></a>
+                    	<a href="{{ session['historial'][1] }}"><li>Historial 2</li></a>
+                    	<a href="{{ session['historial'][2] }}"><li>Historial 3</li></a>
+                    {% endif %}
+			{% else %}
+				<form action="/login" method="post">
+					<p>Usuario:</p>
+					<p><input type="text" name="username"/></p>
+					<p><input type="password" name="password"/></p>
+					<input type="submit" value="Login"/>
+				</form>
+
+			{%endif%}
+		  </div>
+		</div>
+			<div id="left">
+				<ul>
+					<input type="button" id="boton" value="Home" onClick="window.location = '/';">
+					<input type="button" id="boton" value="Gallery" onClick="window.location = 'gallery';">
+					<input type="button" id="boton" value="Contact" onClick="window.location = 'contact';">
+					<input type="button" id="boton" value="Register" onClick="window.location = 'register';"> 
+			  </ul>
+			</div>
+
+			<div id="right">
+				{% block container %}
+					<a href="#"><img src="../static/images/verde.jpg" alt="time to party"></a>
+				{% endblock %}
+		  </div>
+			<div id="footer">
+				<p>&copy; Lorenzo Copyright.</p>
+		 	</div>
+
+   	</div>
+</body>
+</html>

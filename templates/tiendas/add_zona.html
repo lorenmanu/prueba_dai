@@ -1,21 +1,12 @@
 {% extends "tiendas/base.html" %}
-
+{% load bootstrap_toolkit %}
 {% load staticfiles %}
 {% block body_block %}
-        <h1>Add zona</h1>
+        <h1>Añade zona</h1>
 
         <form role="form"  id="category_form" method="post" action="/tiendas/add_zona/" enctype="multipart/form-data">
             {% csrf_token %}
-            {% for hidden in form.hidden_fields %}
-                {{ hidden }}
-                {% endfor %}
-
-                {% for field in form.visible_fields %}
-                    {{ field.errors }}
-                    {{ field.help_text }}<br/>
-                    {{ field.name }}<br/>
-                    {{ field }}<br/>
-                {% endfor %}
+            {{ form|as_bootstrap }}
 
             <br/>
             <button class="btn btn-primary" type="submit" name="submit">Añadir zona</button>

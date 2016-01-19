@@ -8,7 +8,7 @@ class ZonaForm(forms.ModelForm):
     class Meta:
         # Provide an association between the ModelForm and a model
         model = Zona
-        fields = ('nombre', 'localizacion','imagen')
+        fields = ('nombre', 'localizacion',)
 
 
 class TiendaForm(forms.ModelForm):
@@ -18,7 +18,7 @@ class TiendaForm(forms.ModelForm):
     class Meta:
         # Provide an association between the ModelForm and a model
         model = Tienda
-        exclude = ('zona',)
+        exclude = ('zona','views','slug')
 
 
 class UserForm(forms.ModelForm):

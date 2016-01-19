@@ -1,0 +1,27 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>
+		Practica2DAI
+	</title>
+	<link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}">
+	{% block head %}
+    <link rel="stylesheet" href="style.css" />
+    <title>{% block title %}{% endblock %} - My página</title>
+    {% endblock %}
+</head>
+<body>
+	<b> Hola loco</b>
+	<img src="{{ url_for('static',filename='img.png') }}" width="30%" height="40%">
+	<div id="content">{% block content %}{% endblock %}</div>
+    <div id="footer">
+        {% block footer %}
+        &copy; Copyright 2008 by <a href="http://domain.invalid/">LALALA</a>.
+        {% endblock %}
+    </div>
+
+    <form method="" action="/register">
+	<input type="submit" value="Registrar" />
+</form>
+</body>
+</html>

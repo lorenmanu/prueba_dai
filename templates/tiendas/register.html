@@ -1,5 +1,6 @@
 {% extends "tiendas/base.html" %}
 {% block body_block %}
+{% load bootstrap_toolkit %}
 {{ mensaje | safe }}
 <br>
     <form class="form-horizontal" id="user_form" method="post" action="/tiendas/register/"
@@ -7,8 +8,8 @@
 
     {% csrf_token %}
 
-                 {{ user_form.as_p }}
-                 {{ profile_form.as_p }}
+                 {{ user_form|as_bootstrap }}
+                 {{ profile_form|as_bootstrap }}
 
                  <input type="submit" name="submit" value="Register" class="btn btn-primary" />
              </form>

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Página principal{% endblock %}
+{% block head %}
+    {{ super() }}
+    <style type="text/css">
+        .important { color: #336699; }
+    </style>
+{% endblock %}
+{% block content %}
+    <h1>Título de la página</h1>
+		{% if usuario %}
+			{% if par1 %}
+  				<h1>{{ par1 }} {{ usuario }} {{ par2 }}!</h1>
+  			{% else %}
+  				<h1>{{ usuario }}!</h1>
+  			{% endif %}
+		{% else %}
+  			<h1>Bienvenido desconocido!</h1>
+		{% endif %}
+{% endblock %}

@@ -4,27 +4,47 @@ from .forms import TiendaForm, ZonaForm, UserForm, UserProfileForm
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 
 
+def reclama_datos(request):
+    print "entra quia"
+    tiendas =  Tienda.objects.order_by('-views')
 
-def add_zona(request):
-    return render(request, 'tiendas/add_zona.html')
+    datos = ()
+    tiendas_nombre = []
+    visitas = []
+    for t in tiendas:
+        visitas.append(t.views)
+        tiendas_nombre.append(t.nombre)
 
-def add_tienda(request, zona_name_slug):
-    return render(request, 'tiendas/add_tienda.html', context_dict)
+    datos= tiendas_nombre, visitas
+    return JsonResponse(datos, safe=False)
 
-def mostrar_tiendas(request,zona_name_slug):
-    return render(request, 'tiendas/mostrartiendas.html', tiendas_dict)
 
-def user_login(request):
-    return render(request, 'tiendas/login.html')
-
+@login_required
 def inicio(request):
     zona_list = Zona.objects.order_by('nombre')[:5] #orden ascendente a-z, orden descendente z-a con ('-nombre')
     tiendas = Tienda.objects.order_by('-views')[:3]
     context_dict = {'zonas': zona_list, 'tiendas': tiendas}
     return render(request, 'tiendas/index.html', context_dict)
 
+
+@login_required
+def aumentar_visitas_tienda(request,tienda_name_slug):
+    try:
+        tienda = Tienda.objects.get(slug=tienda_name_slug)
+        tienda.views += 1
+        tienda.save()
+        zona_list = Zona.objects.order_by('nombre')[:5] #orden ascendente a-z, orden descendente z-a con ('-nombre')
+        tiendas = Tienda.objects.order_by('-views')[:3]
+        context_dict = {'zonas': zona_list, 'tiendas': tiendas}
+        return render(request,'tiendas/index.html', context_dict)
+    except Tienda.DoesNotExist:
+        tienda = None
+        return render(request,'tiendas/index.html')
+    
+@login_required
 def mostrar_tiendas(request,zona_name_slug):
     try:
         zona_aux = Zona.objects.get(slug=zona_name_slug)
@@ -39,34 +59,19 @@ def mostrar_tiendas(request,zona_name_slug):
 
 @login_required
 def add_zona(request):
-    # A HTTP POST?
     if request.method == 'POST':
-        form = ZonaForm(data=request.POST)
-
-        # Have we been provided with a valid form?
+        form = ZonaForm(request.POST)
         if form.is_valid():
-            # Save the new category to the database.
-            form_zona=form.save(commit="False")
-            if 'imagen' in request.FILES:
-                form_zona.imagen = request.FILES['imagen']
-
-            form_zona.save()
-
-            # Now call the index() view.
-            # The user will be shown the homepage.
+            form.save(commit=True)
             return inicio(request)
 
         else:
-            # The supplied form contained errors - just print them to the terminal.
             print form.errors
     else:
-        # If the request was not a POST, display the form to enter details.
         form = ZonaForm()
-
-    # Bad form (or form details), no form supplied...
-    # Render the form with error messages (if any).
+        
     return render(request, 'tiendas/add_zona.html', {'form': form})
-
+@login_required
 def add_tienda(request, zona_name_slug):
 
     try:

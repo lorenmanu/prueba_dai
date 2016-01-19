@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}
+    Register
+{% endblock %}
+{% block container %}
+    {% macro render_field(field) %}
+    <dt> {{ field.label }} </dt>
+    <dd> {{ field(**kwargs)|safe }}
+    {% if field.errors %}
+    <ul class=errors>
+        {% for error in field.errors %}
+            <li>{{error}}</li>
+        {% endfor %}
+    </ul>
+    {%endif%}
+    </dd>
+    {%endmacro%}
+    {%if 'username' in session: %}
+      <p> Ya estas rigistrado </p>
+    {% else %}
+      <form method=post action="/register">
+          <dl>
+            {{ render_field(form.username,placeholder="Name") }}
+            {{ render_field(form.second_name,placeholder="Second name") }}
+            {{ render_field(form.email,placeholder="email") }}
+            {{ render_field(form.pay)}}
+            {{ render_field(form.VISA,placeholder="VISA") }}
+            Birth date:
+            {{ render_field(form.birthday) }}
+            {{ render_field(form.birthmoth) }}
+            {{ render_field(form.birthyear) }}
+            {{ render_field(form.adress, placeholder="Adress")}}
+            {{ render_field(form.password,placeholder="password") }}
+            {{ render_field(form.confirm,placeholder="Confirm password") }}
+            {{ render_field(form.accept_tos) }}
+          </dl>
+          <p><input type=submit value=Register>
+      </form>
+      {%endif%}
+{% endblock %}

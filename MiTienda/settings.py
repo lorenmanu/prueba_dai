@@ -36,6 +36,8 @@ APPEND_SLASH=False
 
 MEDIA_URL = '/media/'
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
 STATIC_PATH = os.path.join(BASE_DIR,'static')
@@ -116,7 +118,10 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'apps.inicio',
     'apps.productos',
+    'apps.tiendas',
     'easy_maps',
+    'bootstrap_toolkit',
+    'rest_framework',
 )
 
 
@@ -187,5 +192,5 @@ USE_L10N = True
 
 USE_TZ = True
 
-
+LOGIN_URL = '/tiendas/login/'
 
