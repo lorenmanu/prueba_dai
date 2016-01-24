@@ -1,3 +1,5 @@
+<script type="text/javascript" src="js/highcharts1/highcharts-2.3.5.js"></script>
+<script type="text/javascript" src="js/highcharts1/modules/exporting-2.3.5.js"></script>
 function Visualiza_datos(datos){
         $('#container').highcharts({
             chart: { type: 'bar', animation:'true' },

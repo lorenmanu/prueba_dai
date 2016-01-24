@@ -25,19 +25,17 @@
 </div>
 
 <div class="row placeholders">
-  <div class="col-xs-12 col-sm-6 placeholder">
+  <div class="col-xs-12 col-sm-24 placeholder">
     {% if tiendas %}
       {% for tienda in tiendas %}
 
       <ul class="list-group">
         <li class="list-group-item"><h3> {{ tienda.nombre }} </h3></li>
-        <li class="list-group-item">{% easy_map tienda.calle 250 200 20 %}</li>
+        <li class="list-group-item">{% easy_map tienda.calle 950 200 20 %}</li>
         <li class="list-group-item">
-          <a href="#" class="thumbnail">
-            <img  width="100" height="200" src="{{ MEDIA_URL }}{{ tienda.imagen }}"/> 
-          </a>
+            <img  class="img-thumbnail" width="50%" height="50%" src="{{ MEDIA_URL }}{{ tienda.imagen }}"/> <p>{{ MEDIA_URL }}{{ tienda.imagen }}</p>
+          
         </li>
-
       </ul>
 
       {% endfor %}

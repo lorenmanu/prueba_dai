@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 
-
+@login_required
 def reclama_datos(request):
     print "entra quia"
     tiendas =  Tienda.objects.order_by('-views')
@@ -21,6 +21,9 @@ def reclama_datos(request):
     datos= tiendas_nombre, visitas
     return JsonResponse(datos, safe=False)
 
+
+def inicio(request):
+    return render(request, 'tiendas/index.html')
 
 @login_required
 def inicio(request):
@@ -103,7 +106,7 @@ def add_tienda(request, zona_name_slug):
     return render(request, 'tiendas/add_tienda.html', context_dict)
 
 def register(request):
-    print "Registro"
+    print  "Esta aqui"
     # A boolean value for telling the template whether the registration was successful.
     # Set to False initially. Code changes value to True when registration succeeds.
     registered = False
@@ -114,7 +117,7 @@ def register(request):
         # Note that we make use of both UserForm and UserProfileForm.
         user_form = UserForm(data=request.POST)
         profile_form = UserProfileForm(data=request.POST)
-
+        print  "Esta aqui"
         # If the two forms are valid...
         if user_form.is_valid() and profile_form.is_valid():
             # Save the user's form data to the database.
@@ -136,11 +139,12 @@ def register(request):
             if 'picture' in request.FILES:
                 profile.picture = request.FILES['picture']
 
-            # Now we save the UserProfile model instance.
+            print  "Esta aqui"
             profile.save()
-
+            return HttpResponseRedirect('/tiendas/')
             # Update our variable to tell the template registration was successful.
             registered = True
+
 
         # Invalid form or forms - mistakes or something else?
         # Print problems to the terminal.
@@ -154,8 +158,7 @@ def register(request):
         user_form = UserForm()
         profile_form = UserProfileForm()
 
-    # Render the template depending on the context.
-    return render(request,
+        return render(request,
             'tiendas/register.html',
             {'user_form': user_form, 'profile_form': profile_form, 'registered': registered} )
 

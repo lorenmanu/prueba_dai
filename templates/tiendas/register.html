@@ -5,7 +5,9 @@
     <form class="form-horizontal" id="user_form" method="post" action="/tiendas/register/"
     enctype="multipart/form-data">
     	  {% csrf_token %}
-	  {{ form.as_p }}
+            {{ user_form.as_p }}
+            {{ profile_form.as_p }}
+
 
                  <input type="submit" name="submit" value="Register" class="btn btn-primary" />
              </form>

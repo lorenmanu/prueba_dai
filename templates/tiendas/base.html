@@ -10,9 +10,44 @@
     <link rel="icon" href="http://getbootstrap.com/favicon.ico">
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <title>Tienda - {% block title %}Tu tienda online!{% endblock %}</title>
-    <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
     <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="http://getbootstrap.com/examples/dashboard/dashboard.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script type="text/javascript">
+    $(function(){
+      $.ajax({
+        url: "{% url 'reclama_datos' %}",
+        type: "get",
+        success: function(datos){
+          Visualiza_datos(datos);
+        },
+        failure: function(datos){
+          alert('No se pueden visualizar los datos');
+        }
+      });
+
+      function Visualiza_datos(datos){
+        $('#container').highcharts({
+          chart: { type: 'bar', animation:'true' },
+          title: { text: 'Visitas de las tiendas' },
+          xAxis: { categories: datos[0] },
+            //xAxis: {categories: ["Almendro", "mariapilar bar", "Ecu", "Conchita", "Entre ascuas", "Casa Blanca"]},
+            yAxis: {
+              title:{
+                text:'Visitas'
+              }
+            },
+            series: [{
+              data: datos[1],
+              name:"numero de visitas",
+                //data : [74, 20, 9, 6, 3, 2]
+              }],
+            });
+      };
+    });
+
+    </script>
     <script type="text/javascript" src="{% static 'js/cambiar_text.js' %}"></script>
   </head>
 
@@ -51,25 +86,7 @@
             <div class="boton">Texto Normal</div>
             <div class="boton" id="disminuir">Texto Chico</div>
           </div>
-          <script src="http://code.highcharts.com/highcharts.js"></script>
-          <script src="{% static 'js/grafica.js' %}"></script>
-          <script>
-          $(function(){
-            $.ajax({
-              url: "{% url 'reclama_datos' %}",
-              type: "get",
-              success: function(datos){
-                Visualiza_datos(datos);
-              },
-              failure: function(datos){
-                alert('No se pueden visualizar los datos');
-              }
-            });
-          });
-
-          </script>
           {% endblock %}
-          <div id="container" style="height: 300px"></div>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
          <div>
@@ -79,12 +96,6 @@
     </div>
   </div>
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="http://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
+
   </body>
   </html>
