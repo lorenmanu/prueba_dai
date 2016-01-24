@@ -30,7 +30,7 @@ class UserForm(forms.ModelForm):
     password = forms.SlugField (max_length=8,
                        help_text="(Hasta 8 caracteres)",
                        widget=forms.PasswordInput(),
-                       label='Clave/Contraseña:')
+                       label='Clave/Contrasena:')
     class Meta:
         model  = User
         fields = ('username', 'email', 'password')
