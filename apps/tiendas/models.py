@@ -21,7 +21,7 @@ class Tienda(models.Model):
     nombre = models.CharField(max_length=128,unique=True)
     calle = models.CharField(max_length=128,unique=True)
     zona = models.ForeignKey(Zona,null=True)
-    imagen = models.ImageField(upload_to='/tmp', blank=True)
+    imagen = models.ImageField(upload_to='tmp/', blank=True)
     views = models.IntegerField(default=0)
     slug = models.SlugField(default=0)
 

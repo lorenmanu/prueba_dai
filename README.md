@@ -9,7 +9,7 @@
 
 ## **Proyecto de IV(infraestructura Virtual) junto con DAI(DESARROLLO DE APLICACIONES DE INTERNET** ##
 
-###Breve Descripción/Introducción:
+### Breve Descripción/Introducción:
 
 El proyecto consiste en una plataforma de compra/venta de productos on-line. La plataforma contiene varias secciones para la venta de todo tipo de productos. La plataforma consiste en una página web donde cualquiera podrá ver los productos que se venden, pero para poder vender o comprar será necesario registro. Si el vendedor se encuentra conectado, cualquier comprador potencial podrá chatear con el para preguntarle sobre el productos.
 
@@ -32,16 +32,16 @@ clean:
 	- rm -rf *~*
 	- find . -name '*.pyc' -exec rm {} \;
 
-install: 
+install:
 	python setup.py install
-	
-test: 
+
+test:
 	python manage.py test
-	
+
 run:
 	python manage.py runserver
 doc:
-	epydoc --html MiTienda/*.py 
+	epydoc --html MiTienda/*.py
 
 
 ```
@@ -142,6 +142,3 @@ Para la creación del entorno Docker en mi máquina virtual ec2 he usado un arch
 Para crear una instancia en **ec2**, he seguido los pasos detallados en el siguiente [archivo](https://github.com/lorenmanu/submodulo-lorenzo/blob/master/documentacion/ec2.md).
 
 El enlace mi instacia en EC2 donde se puede ver la aplicación es [este](http://ec2-52-11-219-71.us-west-2.compute.amazonaws.com).
-
-
-

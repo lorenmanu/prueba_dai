@@ -26,11 +26,11 @@ class TiendaForm(forms.ModelForm):
 
 class UserForm(forms.ModelForm):
     username = forms.SlugField (max_length=8, label='Nombre de usuario:')
-    email    = forms.EmailField (label='Correo electronico:')
-    password = forms.SlugField (max_length=8,
-                       help_text="(Hasta 8 caracteres)",
-                       widget=forms.PasswordInput(),
-                       label='Clave/Contrasena:')
+    email    = forms.EmailField (label='Correo:')
+    password = forms.SlugField (max_length=8, 
+                       help_text="(Hasta 8 caracteres)", 
+                       widget=forms.PasswordInput(),  
+                       label='Contrasena:')
     class Meta:
         model  = User
         fields = ('username', 'email', 'password')

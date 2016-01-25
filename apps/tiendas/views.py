@@ -38,14 +38,14 @@ def aumentar_visitas_tienda(request,tienda_name_slug):
     try:
         tienda = Tienda.objects.get(slug=tienda_name_slug)
         tienda.views += 1
+        zona_aux=tienda.zona
         tienda.save()
-        zona_list = Zona.objects.order_by('nombre')[:5] #orden ascendente a-z, orden descendente z-a con ('-nombre')
-        tiendas = Tienda.objects.order_by('-views')[:3]
-        context_dict = {'zonas': zona_list, 'tiendas': tiendas}
-        return render(request,'tiendas/index.html', context_dict)
+        tiendas_list = Tienda.objects.filter(zona=zona_aux)
+        tiendas_dict = {'tiendas': tiendas_list,'zona':zona_aux}
+        return render(request,'tiendas/mostrartiendas.html',tiendas_dict)
     except Tienda.DoesNotExist:
         tienda = None
-        return render(request,'tiendas/index.html')
+        return render(request,'tiendas/mostrartiendas.html')
     
 @login_required
 def mostrar_tiendas(request,zona_name_slug):
@@ -106,7 +106,7 @@ def add_tienda(request, zona_name_slug):
     return render(request, 'tiendas/add_tienda.html', context_dict)
 
 def register(request):
-    print  "Esta aqui"
+    print "Registro"
     # A boolean value for telling the template whether the registration was successful.
     # Set to False initially. Code changes value to True when registration succeeds.
     registered = False
@@ -117,7 +117,7 @@ def register(request):
         # Note that we make use of both UserForm and UserProfileForm.
         user_form = UserForm(data=request.POST)
         profile_form = UserProfileForm(data=request.POST)
-        print  "Esta aqui"
+
         # If the two forms are valid...
         if user_form.is_valid() and profile_form.is_valid():
             # Save the user's form data to the database.
@@ -139,12 +139,12 @@ def register(request):
             if 'picture' in request.FILES:
                 profile.picture = request.FILES['picture']
 
-            print  "Esta aqui"
+            # Now we save the UserProfile model instance.
             profile.save()
-            return HttpResponseRedirect('/tiendas/')
+
             # Update our variable to tell the template registration was successful.
             registered = True
-
+            return HttpResponseRedirect('/tiendas/')
 
         # Invalid form or forms - mistakes or something else?
         # Print problems to the terminal.
@@ -158,7 +158,8 @@ def register(request):
         user_form = UserForm()
         profile_form = UserProfileForm()
 
-        return render(request,
+    # Render the template depending on the context.
+    return render(request,
             'tiendas/register.html',
             {'user_form': user_form, 'profile_form': profile_form, 'registered': registered} )
 

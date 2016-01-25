@@ -19,7 +19,7 @@
   <div class="panel-heading">
     <h3 class="panel-title">Tiendas</h3>
     {% if user.is_authenticated %}
-    <h3 class="panel-title"><a href="/tiendas/add_tienda/{{ zona.slug }}/"}>Anadir tienda {{ zona.slug }}</a></h3>
+    <h3 class="panel-title"><a href="/tiendas/add_tienda/{{ zona.slug }}/"}>Anadir tienda a {{ zona.slug }}</a></h3>
     {%endif%}
   </div>
 </div>
@@ -30,7 +30,7 @@
       {% for tienda in tiendas %}
 
       <ul class="list-group">
-        <li class="list-group-item"><h3> {{ tienda.nombre }} </h3></li>
+        <li class="list-group-item"><h3> <a href="{% url 'au_v_tienda' tienda.slug %}">{{ tienda.zona.nombre }} ==> {{ tienda.nombre }}  {{ tienda.views }} visitas</a></h3></li>
         <li class="list-group-item">{% easy_map tienda.calle 950 200 20 %}</li>
         <li class="list-group-item">
             <img  class="img-thumbnail" width="50%" height="50%" src="{{ MEDIA_URL }}{{ tienda.imagen }}"/> <p>{{ MEDIA_URL }}{{ tienda.imagen }}</p>

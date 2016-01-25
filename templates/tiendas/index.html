@@ -45,7 +45,7 @@
     {% if tiendas %}
     <ul class="list-group">
       {% for tienda in tiendas %}
-      <li class="list-group-item"><a href="{% url 'au_v_tienda' tienda.slug %}">{{ tienda.zona.nombre }} ==> {{ tienda.nombre }}  {{ tienda.views }} votos</a></li>
+      <li class="list-group-item"><a href="{% url 'au_v_tienda' tienda.slug %}">{{ tienda.zona.nombre }} ==> {{ tienda.nombre }}  {{ tienda.views }} visitas</a></li>
       {% endfor %}
     </ul>
     {% else %}
