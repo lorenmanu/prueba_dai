@@ -1,28 +1,32 @@
 - hosts: localhost
   sudo: yes
-  remote_user: vagrant
   tasks:
   - name: Actualizar sistema
     apt: update_cache=yes upgrade=dist
-  - name: Instalar paquetes
+  - name: Instalar python-setuptools
     apt: name=python-setuptools state=present
+  - name: Instalar build-essential
     apt: name=build-essential state=present
-    apt: name=libpq-dev state=present
-    apt: name=python-dev state=present
+  - name: Instalar pip
     apt: name=python-pip state=present
+  - name: Instalar git
     apt: name=git state=present
   - name: Ins Pyp
-    action: apt pkg=python-pip
+    apt: pkg=python-pip state=present
+  - name: Instalar python-dev
+    apt: pkg=python-dev state=present
+  - name: Instalar libpq-dev
+    apt: pkg=libpq-dev state=present
+  - name: Instalar python-psycopg2
+    apt: pkg=python-psycopg2 state=present
   - name: Obtener aplicacion de git
     command: git clone https://github.com/lorenmanu/prueba_dai.git
   - name: Permisos de ejecucion
     command: chmod -R +x prueba_dai
-  - name: Instalar libreria 3 para pillow
+  - name: Instalar libreria para pillow
     command: sudo apt-get -y build-dep python-imaging --fix-missing
   - name: Instalar pillow
     command: sudo easy_install Pillow
-  - name: Instalar python-libqd
-    command: sudo apt-get install -y python-dev libpq-dev python-psycopg2
   - name: Instalar requisitos
     command: sudo pip install -r prueba_dai/requirements.txt
   - name: ejecutar
